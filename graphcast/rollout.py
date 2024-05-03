@@ -44,6 +44,7 @@ def chunked_prediction(
     targets_template: xarray.Dataset,
     forcings: xarray.Dataset,
     num_steps_per_chunk: int = 1,
+    steady_dt = None,
     verbose: bool = False,
 ) -> xarray.Dataset:
   """Outputs a long trajectory by iteratively concatenating chunked predictions.
@@ -65,6 +66,9 @@ def chunked_prediction(
 
   """
   chunks_list = []
+  if steady_dt != None:
+    print('GH: got tendency for steady state...')
+    
   for prediction_chunk in chunked_prediction_generator(
       predictor_fn=predictor_fn,
       rng=rng,
@@ -72,8 +76,10 @@ def chunked_prediction(
       targets_template=targets_template,
       forcings=forcings,
       num_steps_per_chunk=num_steps_per_chunk,
-      verbose=verbose):
+      verbose=verbose,
+      steady_dt=steady_dt):
     chunks_list.append(jax.device_get(prediction_chunk))
+        
   return xarray.concat(chunks_list, dim="time")
 
 
@@ -85,6 +91,7 @@ def chunked_prediction_generator(
     forcings: xarray.Dataset,
     num_steps_per_chunk: int = 1,
     verbose: bool = False,
+    steady_dt = None,
 ) -> Iterator[xarray.Dataset]:
   """Outputs a long trajectory by yielding chunked predictions.
 
@@ -167,6 +174,11 @@ def chunked_prediction_generator(
         targets_template=current_targets_template,
         forcings=current_forcings)
 
+    # GH: steady state forcing
+    if steady_dt !=None:
+      print('making mean state tendency steady...')
+      predictions = predictions - steady_dt
+      
     next_frame = xarray.merge([predictions, current_forcings])
 
     next_inputs = _get_next_inputs(current_inputs, next_frame)
