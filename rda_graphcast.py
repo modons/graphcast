@@ -16,7 +16,13 @@ import datetime as dt
 import rda
 import xarray as xr
 
-date =  "2022121500" # YYYYMMDDHH 
+#date =  "2022121500" # YYYYMMDDHH 
+#date =  "2021062000" # YYYYMMDDHH 
+#date =  "2021062100" # YYYYMMDDHH 
+#date =  "2021062200" # YYYYMMDDHH 
+#date =  "2021062300" # YYYYMMDDHH 
+date =  "2021062500" # YYYYMMDDHH 
+#date =  "2021063000" # YYYYMMDDHH 
 start_time = dt.datetime(int(date[:4]),int(date[4:6]),int(date[6:8]),int(date[8:10]))
 print(start_time+dt.timedelta(days=3))
 

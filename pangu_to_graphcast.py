@@ -15,13 +15,14 @@ path_output = rpath+'output/'
 perturb_ic = False
 #geoadjust = True
 geoadjust = False
-#graphcast_version = 'small' # small version (1 degree, precip input/output)
-graphcast_version = 'oper'  # "operational" version (0.25 degree, precip output only)
-zonal_mean = True
-#zonal_mean = False
+graphcast_version = 'small' # small version (1 degree, precip input/output)
+#graphcast_version = 'oper'  # "operational" version (0.25 degree, precip output only)
+#zonal_mean = True
+zonal_mean = False
 #ntims = 20 # for perturbed IC experiments
 #ntims = 9
-ntims = 6 # for mean state test
+#ntims = 6 # for mean state test
+ntims = 2 # convert mean state
 
 import numpy as np
 import xarray as xr
@@ -85,8 +86,14 @@ for v in pw_config['var_pl']+pw_config['missing_pl']:
     print(v,':',gc_config['var_pl'][v])
 
 # read pw time-mean state
-pmean = '/glade/work/hakim/data/ai-models/panguweather/mean_state/orig/'
-mean_pl,mean_sfc,lat_pw,lon_pw = pw.fetch_mean_state(pmean,zm=zonal_mean)
+#pmean = '/glade/work/hakim/data/ai-models/panguweather/mean_state/orig/'
+pmean = '/glade/work/hakim/data/ai-models/graphcast/climo/ERA5_climo_june_1979_2020.h5'
+#mean_pl,mean_sfc,lat_pw,lon_pw = pw.fetch_mean_state(pmean,zm=zonal_mean)
+h5f = h5py.File(pmean,'r')
+mean_pl = h5f['mean_pl'][:]
+mean_sfc = h5f['mean_sfc'][:]
+lat_pw = h5f['lat'][:]
+lon_pw = h5f['lon'][:]
 
 # option to perturb the mean state
 if perturb_ic:
@@ -240,6 +247,7 @@ if graphcast_version == 'small':
         of = rpath+'/input/graphcast_pw_DJF_perturbed_small.nc'
     else:
         of = rpath+'/input/graphcast_pw_DJF_mean_small.nc'
+        of = '/glade/work/hakim/data/ai-models/graphcast/climo/ERA5_climo_june_1979_2020_gc_small.h5'
 else:
     if perturb_ic:
         if geoadjust:
