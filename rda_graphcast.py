@@ -21,7 +21,12 @@ import xarray as xr
 #date =  "2021062100" # YYYYMMDDHH 
 #date =  "2021062200" # YYYYMMDDHH 
 #date =  "2021062300" # YYYYMMDDHH 
-date =  "2021062500" # YYYYMMDDHH 
+#date =  "2021062400" # YYYYMMDDHH 
+#date =  "2021062500" # YYYYMMDDHH 
+#date =  "2021062600" # YYYYMMDDHH 
+#date =  "2021062700" # YYYYMMDDHH 
+#date =  "2021062800" # YYYYMMDDHH 
+date =  "2021062900" # YYYYMMDDHH 
 #date =  "2021063000" # YYYYMMDDHH 
 start_time = dt.datetime(int(date[:4]),int(date[4:6]),int(date[6:8]),int(date[8:10]))
 print(start_time+dt.timedelta(days=3))

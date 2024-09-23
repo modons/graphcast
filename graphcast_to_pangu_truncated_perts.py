@@ -18,7 +18,9 @@ cfile = '/glade/work/tvonich/inputs/10day_verification'
 #ofile = 'graphcast_control_on_pangu'
 #ofile = 'graphcast_reg_optimal_on_pangu_T'
 #ofile = 'graphcast_reg_optimal_on_pangu_NH_'
-ofile = 'graphcast_gl_optimal_on_pangu_NH_'
+ofile = 'graphcast_gl_optimal_on_pangu_'
+#ofile = 'graphcast_gl_optimal_on_pangu_NH_'
+#ofile = 'graphcast_gl_optimal_on_pangu_negperts_'
 
 # path to write the converted file
 icpath = '/glade/work/hakim/data/ai-models/panguweather/graphcast_input/'
@@ -218,6 +220,9 @@ if ntrunc != None:
 else:
     print('using all spherical harmonics; truncating by another strategy...')
     #--- other pert strategies here ---
+    # original perts
+    np_pl = np.copy(pert_pl)
+    np_sfc = np.copy(pert_sfc)    
     # tropics only
     #np_pl = np.copy(control_pl)
     #np_sfc = np.copy(control_sfc)
@@ -229,18 +234,26 @@ else:
     #np_pl[:,:,60*4:120*4+1,:] = control_pl[:,:,60*4:120*4+1,:]
     #np_sfc[:,60*4:120*4+1,:] = control_sfc[:,60*4:120*4+1,:]
     # NH only
-    np_pl = np.copy(pert_pl)
-    np_sfc = np.copy(pert_sfc)
-    np_pl[:,:,90*4+1:,:] = control_pl[:,:,90*4+1:,:]
-    np_sfc[:,90*4+1:,:] = control_sfc[:,90*4+1:,:]
+    #np_pl = np.copy(pert_pl)
+    #np_sfc = np.copy(pert_sfc)
+    #np_pl[:,:,90*4+1:,:] = control_pl[:,:,90*4+1:,:]
+    #np_sfc[:,90*4+1:,:] = control_sfc[:,90*4+1:,:]
+    # negative perturbations
+    #perts = -1.*(pert_pl - control_pl)
+    #np_pl = np.copy(control_pl) + perts
+    #perts = -1.*(pert_sfc - control_sfc)
+    #np_sfc = np.copy(control_sfc) + perts
     
 #--
 # write the pangu IC file
 #rgfile = icpath+ofile+str(ntrunc)+'.h5'
 dd = c_ds['datetime'].isel(batch=0,time=time_gc).to_numpy()
 dds = np.datetime_as_string(dd, unit='h')
-rgfile = icpath+ofile+str(ntrunc)+'_'+dds+'.h5'
 print('time from datetime in nc file: ',dds)
+if ntrunc != None:
+    rgfile = icpath+ofile+str(ntrunc)+'_'+dds+'.h5'
+else:
+    rgfile = icpath+ofile+dds+'.h5'
 
 #rgfile = icpath+ofile
 print('writing file: ',rgfile)    

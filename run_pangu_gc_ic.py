@@ -75,8 +75,10 @@ opath = config['path_output']
 #infile = 'graphcast_reg_optimal_on_pangu_T30_2021-06-20T00.h5'
 #infile = 'graphcast_reg_optimal_on_pangu_15day.h5'
 #infile = 'graphcast_control_on_pangu_15day_2021-06-15T00.h5'
-infile = 'graphcast_reg_optimal_on_pangu_NH_None_2021-06-20T00.h5'
-infile = 'graphcast_gl_optimal_on_pangu_NH_None_2021-06-20T00.h5'
+#infile = 'graphcast_reg_optimal_on_pangu_NH_None_2021-06-20T00.h5'
+#infile = 'graphcast_gl_optimal_on_pangu_NH_None_2021-06-20T00.h5'
+#infile = 'graphcast_gl_optimal_on_pangu_negperts__2021-06-20T00.h5'
+infile = 'graphcast_gl_optimal_on_pangu_2021-06-20T00.h5'
 #
 infile_iv = config['path_input']+infile
 outfile = opath+infile[:-3]+'_solution.h5'
