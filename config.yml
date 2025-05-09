@@ -1,0 +1,20 @@
+# sets paths to code, model weights, mean-state, inputs and outputs
+path_model: '/glade/work/hakim/data/ai-models/panguweather/'
+path_input: '/glade/work/hakim/data/ai-models/panguweather/graphcast_input/'
+path_output: '/glade/work/hakim/data/ai-models/panguweather/graphcast_testing/'
+
+# simulation length in hours
+#nhours: 384
+#nhours: 288
+nhours: 336
+
+# state output frequency in hours (determines the model(s) used))
+ohr: 24
+
+# only write 500hPa fields (False = write all)
+only_500: False
+
+# pangu specific info (don't change)
+var_sfc: ["msl", "u10m", "v10m", "t2m"]
+var_pl: ["z", "q", "t", "u", "v"]
+levels: [1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 50]

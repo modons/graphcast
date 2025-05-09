@@ -6,7 +6,7 @@ convert a graphcast nc file to a pangu-weather compatible input file
 
 # set the graphcast source .nc file
 #vfile = '/glade/work/tvonich/inputs/10day_verification'
-vfile = '/glade/work/tvonich/inputs/15day_verification'
+#vfile = '/glade/work/tvonich/inputs/15day_verification'
 #vfile = '/glade/work/tvonich/inputs/full_june2021_f32.nc'
 #vfile = '/glade/u/home/tvonich/graph_repo/results/optimization/optimal_input/jun30_right_justify/reg/40_steps_99_epochs_10_patient_[42.0, 60.0, 230.0, 250.0]_times_all_.nc'
 #vfile = '/glade/u/home/tvonich/graph_repo/results/optimization/optimal_input/jun30_right_justify/reg/60_steps_93_epochs_10_patient_[42.0, 60.0, 230.0, 250.0]_times_all_.nc'
@@ -16,7 +16,18 @@ vfile = '/glade/work/tvonich/inputs/15day_verification'
 #ofile = 'graphcast_optimal_ic_on_pangu_10day_control_check2.h5'
 #ofile = 'graphcast_control_on_pangu'
 #ofile = 'graphcast_reg_optimal_on_pangu_15day'
-ofile = 'graphcast_control_on_pangu_15day'
+#ofile = 'graphcast_control_on_pangu_15day'
+#
+# 17 January 2025: running heatwave global optimal
+vfile = '/glade/work/tvonich/optimals/jun30_right_justify/gl/40_steps_95_epochs_10_patient_all_times_all_.nc'
+ofile = 'graphcast_gl_optimal_on_pangu_10day'
+
+#
+# Trent's new optimization files...
+#vfile = '/glade/campaign/univ/uwas0139/paper2/optimal/BEST/BEST_2020-01-01T00_56_target_lead_48_current_epoch.nc'
+#ofile = 'graphcast_BEST_on_pangu_14day'
+# control
+#vfile = '/glade/work/tvonich/inputs/full_01_12_2020.nc' # this is full ERA5; need truncated
 
 # path to write the converted file
 icpath = '/glade/work/hakim/data/ai-models/panguweather/graphcast_input/'
